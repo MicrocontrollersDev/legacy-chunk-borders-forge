@@ -1,0 +1,10 @@
+{
+  "package": "dev.tildejustin.chunkborders.mixin",
+  "refmap": "mixins.legacy-chunk-borders.refmap.json",
+  "minVersion": "0.7",
+  "compatibilityLevel": "JAVA_8",
+  "client": [
+    "EntityRendererMixin",
+    "MinecraftMixin"
+  ]
+}

@@ -1,19 +1,17 @@
-package dev.tildejustin.chunkborders;
+package dev.tildejustin.chunkborders.renderer;
 
-import net.fabricmc.api.*;
-import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.Minecraft;
 
-@Environment(EnvType.CLIENT)
 public class DebugRenderer {
     public final DebugRenderer.DebugRenderable chunkBorders;
     private boolean renderChunkBorders;
     public static DebugRenderer instance;
 
     static {
-        DebugRenderer.instance = new DebugRenderer(MinecraftClient.getInstance());
+        DebugRenderer.instance = new DebugRenderer(Minecraft.getMinecraft());
     }
 
-    private DebugRenderer(MinecraftClient minecraftClient) {
+    private DebugRenderer(Minecraft minecraftClient) {
         this.chunkBorders = new ChunkBorderDebugRenderer(minecraftClient);
     }
 
@@ -26,7 +24,7 @@ public class DebugRenderer {
     }
 
     public void render(float tickDelta, long limitTime) {
-        if (this.renderChunkBorders && !MinecraftClient.getInstance().player.getReducedDebugInfo()) {
+        if (this.renderChunkBorders && !Minecraft.getMinecraft().thePlayer.hasReducedDebug()) {
             this.chunkBorders.render(tickDelta, limitTime);
         }
     }
