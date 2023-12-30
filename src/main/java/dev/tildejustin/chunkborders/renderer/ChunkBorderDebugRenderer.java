@@ -27,7 +27,7 @@ public class ChunkBorderDebugRenderer implements DebugRenderer.DebugRenderable {
         double g = 0.0 - e;
         double h = 256.0 - e;
         GlStateManager.disableTexture2D();
-        GlStateManager.disableBlend();
+        GlStateManager.enableBlend();
         double i = (double) (playerEntity.chunkCoordX << 4) - d;
         double j = (double) (playerEntity.chunkCoordZ << 4) - f;
         GL11.glLineWidth(1.0F);
@@ -109,14 +109,14 @@ public class ChunkBorderDebugRenderer implements DebugRenderer.DebugRenderable {
             worldRenderer.pos(i, m, j).color(getR, getG, getB, getA).endVertex();
             worldRenderer.pos(i, m, j + 16.0).color(getR, getG, getB, getA).endVertex();
             worldRenderer.pos(i + 16.0, m, j + 16.0).color(getR, getG, getB, getA).endVertex();
-            worldRenderer.pos(i + 16.0, m, j).color(getR, getG, getB, 1.0F).endVertex();
+            worldRenderer.pos(i + 16.0, m, j).color(getR, getG, getB, getA).endVertex();
             worldRenderer.pos(i, m, j).color(getR, getG, getB, getA).endVertex();
             worldRenderer.pos(i, m, j).color(getR, getG, getB, 0.0F).endVertex();
         }
 
         tessellator.draw();
         GL11.glLineWidth(1.0F);
-        GlStateManager.enableBlend();
+        GlStateManager.disableBlend();
         GlStateManager.enableTexture2D();
     }
 }
