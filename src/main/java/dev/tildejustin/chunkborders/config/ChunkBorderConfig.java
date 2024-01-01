@@ -18,7 +18,7 @@ public class ChunkBorderConfig extends Config {
 
     @Switch(
             name = "Allow Opacity",
-            description = "Allows for opacity on lines. Due to blending, this will cause some colors to mix."
+            description = "Allows for opacity on lines."
     )
     public static boolean opacity = false;
 
@@ -38,7 +38,7 @@ public class ChunkBorderConfig extends Config {
             name = "Current Chunk Color",
             description = "Default: Yellow #FFFF00"
     )
-    public static OneColor currentChunkColor = new OneColor(255, 255, 0, 100);
+    public static OneColor currentChunkColor = new OneColor(255, 255, 0, 255);
 
     @Slider(
             name = "Current Chunk Line Width",
@@ -46,6 +46,14 @@ public class ChunkBorderConfig extends Config {
             min = 0.1F, max = 10F
     )
     public static float currentChunkWidth = 1.0F;
+
+    @Dropdown(
+            name = "Current Chunk Line Spacing",
+            description = "Default: 2",
+            options = {"1", "2", "4", "8"},
+            size = 2
+    )
+    public static int currentChunkSpacing = 1;
 
     @Switch(
             name = "Sub Chunk",
@@ -74,9 +82,9 @@ public class ChunkBorderConfig extends Config {
 
     @Color(
             name = "Adjacent Chunk Color",
-            description = "Default: Red #FF000080"
+            description = "Default: Red #FF000000"
     )
-    public static OneColor adjacentChunkColor = new OneColor(255, 0, 0, 127);
+    public static OneColor adjacentChunkColor = new OneColor(255, 0, 0, 255);
 
     @Slider(
             name = "Adjacent Chunk Line Width",
@@ -84,13 +92,6 @@ public class ChunkBorderConfig extends Config {
             min = 0.1F, max = 10F
     )
     public static float adjacentChunkWidth = 1.0F;
-
-    @Info(
-            type = InfoType.ERROR,
-            text = "Currently, several lines are drawn multiple times leading to overlapping lines which may cause issues with opacity and differing line widths.",
-            size = 2
-    )
-    private boolean error = false;
 
     public ChunkBorderConfig() {
         super(new Mod(LegacyChunkBorders.NAME, ModType.UTIL_QOL, "/icon.png"), LegacyChunkBorders.MODID + ".json");

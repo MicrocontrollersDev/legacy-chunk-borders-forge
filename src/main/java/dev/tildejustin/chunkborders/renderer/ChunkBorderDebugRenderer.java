@@ -36,6 +36,7 @@ public class ChunkBorderDebugRenderer implements DebugRenderer.DebugRenderable {
         float getG;
         float getB;
         float getA;
+        int getS = (int) Math.pow(2, ChunkBorderConfig.currentChunkSpacing);
 
         if (ChunkBorderConfig.adjacentChunk) {
             GL11.glLineWidth(ChunkBorderConfig.adjacentChunkWidth);
@@ -48,10 +49,12 @@ public class ChunkBorderDebugRenderer implements DebugRenderer.DebugRenderable {
 
             for (int k = -16; k <= 32; k += 16) {
                 for (int l = -16; l <= 32; l += 16) {
-                    worldRenderer.pos(i + (double) k, g, j + (double) l).color(getR, getG, getB, 0.0F).endVertex();
-                    worldRenderer.pos(i + (double) k, g, j + (double) l).color(getR, getG, getB, getA).endVertex();
-                    worldRenderer.pos(i + (double) k, h, j + (double) l).color(getR, getG, getB, getA).endVertex();
-                    worldRenderer.pos(i + (double) k, h, j + (double) l).color(getR, getG, getB, 0.0F).endVertex();
+                    if (!ChunkBorderConfig.subChunk || !((k == 0 || k == 16) && (l == 0 || l == 16))) { // prevent adjacent from overlapping with sub chunk
+                        worldRenderer.pos(i + (double) k, g, j + (double) l).color(getR, getG, getB, 0.0F).endVertex();
+                        worldRenderer.pos(i + (double) k, g, j + (double) l).color(getR, getG, getB, getA).endVertex();
+                        worldRenderer.pos(i + (double) k, h, j + (double) l).color(getR, getG, getB, getA).endVertex();
+                        worldRenderer.pos(i + (double) k, h, j + (double) l).color(getR, getG, getB, 0.0F).endVertex();
+                    }
                 }
             }
             tessellator.draw();
@@ -66,7 +69,7 @@ public class ChunkBorderDebugRenderer implements DebugRenderer.DebugRenderable {
             getB = ChunkBorderConfig.currentChunkColor.getBlue() / 255F;
             getA = ChunkBorderConfig.currentChunkColor.getAlpha() / 255F;
 
-            for (int k = 2; k < 16; k += 2) {
+            for (int k = getS; k < 16; k += getS) {
                 worldRenderer.pos(i + (double) k, g, j).color(getR, getG, getB, 0.0F).endVertex();
                 worldRenderer.pos(i + (double) k, g, j).color(getR, getG, getB, getA).endVertex();
                 worldRenderer.pos(i + (double) k, h, j).color(getR, getG, getB, getA).endVertex();
@@ -77,7 +80,7 @@ public class ChunkBorderDebugRenderer implements DebugRenderer.DebugRenderable {
                 worldRenderer.pos(i + (double) k, h, j + 16.0).color(getR, getG, getB, 0.0F).endVertex();
             }
 
-            for (int k = 2; k < 16; k += 2) {
+            for (int k = getS; k < 16; k += getS) {
                 worldRenderer.pos(i, g, j + (double) k).color(getR, getG, getB, 0.0F).endVertex();
                 worldRenderer.pos(i, g, j + (double) k).color(getR, getG, getB, getA).endVertex();
                 worldRenderer.pos(i, h, j + (double) k).color(getR, getG, getB, getA).endVertex();
@@ -88,15 +91,17 @@ public class ChunkBorderDebugRenderer implements DebugRenderer.DebugRenderable {
                 worldRenderer.pos(i + 16.0, h, j + (double) k).color(getR, getG, getB, 0.0F).endVertex();
             }
 
-            for (int k = 0; k <= 256; k += 2) {
-                double m = (double) k - e;
-                worldRenderer.pos(i, m, j).color(getR, getG, getB, 0.0F).endVertex();
-                worldRenderer.pos(i, m, j).color(getR, getG, getB, getA).endVertex();
-                worldRenderer.pos(i, m, j + 16.0).color(getR, getG, getB, getA).endVertex();
-                worldRenderer.pos(i + 16.0, m, j + 16.0).color(getR, getG, getB, getA).endVertex();
-                worldRenderer.pos(i + 16.0, m, j).color(getR, getG, getB, getA).endVertex();
-                worldRenderer.pos(i, m, j).color(getR, getG, getB, getA).endVertex();
-                worldRenderer.pos(i, m, j).color(getR, getG, getB, 0.0F).endVertex();
+            for (int k = 0; k <= 256; k += getS) {
+                if (!ChunkBorderConfig.subChunk || k % 16 != 0) {
+                    double m = (double) k - e;
+                    worldRenderer.pos(i, m, j).color(getR, getG, getB, 0.0F).endVertex();
+                    worldRenderer.pos(i, m, j).color(getR, getG, getB, getA).endVertex();
+                    worldRenderer.pos(i, m, j + 16.0).color(getR, getG, getB, getA).endVertex();
+                    worldRenderer.pos(i + 16.0, m, j + 16.0).color(getR, getG, getB, getA).endVertex();
+                    worldRenderer.pos(i + 16.0, m, j).color(getR, getG, getB, getA).endVertex();
+                    worldRenderer.pos(i, m, j).color(getR, getG, getB, getA).endVertex();
+                    worldRenderer.pos(i, m, j).color(getR, getG, getB, 0.0F).endVertex();
+                }
             }
 
             tessellator.draw();
