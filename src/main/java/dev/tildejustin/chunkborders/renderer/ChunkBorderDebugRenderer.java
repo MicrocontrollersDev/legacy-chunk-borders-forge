@@ -38,6 +38,7 @@ public class ChunkBorderDebugRenderer implements DebugRenderer.DebugRenderable {
         float getA;
         int getS = (int) Math.pow(2, ChunkBorderConfig.currentChunkSpacing);
 
+        // adjacent chunk
         if (ChunkBorderConfig.adjacentChunk) {
             GL11.glLineWidth(ChunkBorderConfig.adjacentChunkWidth);
             worldRenderer.begin(3, DefaultVertexFormats.POSITION_COLOR);
@@ -49,7 +50,7 @@ public class ChunkBorderDebugRenderer implements DebugRenderer.DebugRenderable {
 
             for (int k = -16; k <= 32; k += 16) {
                 for (int l = -16; l <= 32; l += 16) {
-                    if (!ChunkBorderConfig.subChunk || !((k == 0 || k == 16) && (l == 0 || l == 16))) { // prevent adjacent from overlapping with sub chunk
+                    if (!ChunkBorderConfig.subChunk || !((k == 0 || k == 16) && (l == 0 || l == 16))) { // prevent adjacent from overlapping with sub
                         worldRenderer.pos(i + (double) k, g, j + (double) l).color(getR, getG, getB, 0.0F).endVertex();
                         worldRenderer.pos(i + (double) k, g, j + (double) l).color(getR, getG, getB, getA).endVertex();
                         worldRenderer.pos(i + (double) k, h, j + (double) l).color(getR, getG, getB, getA).endVertex();
@@ -60,6 +61,7 @@ public class ChunkBorderDebugRenderer implements DebugRenderer.DebugRenderable {
             tessellator.draw();
         }
 
+        // current chunk
         if (ChunkBorderConfig.currentChunk) {
             GL11.glLineWidth(ChunkBorderConfig.currentChunkWidth);
             worldRenderer.begin(3, DefaultVertexFormats.POSITION_COLOR);
@@ -92,7 +94,7 @@ public class ChunkBorderDebugRenderer implements DebugRenderer.DebugRenderable {
             }
 
             for (int k = 0; k <= 256; k += getS) {
-                if (!ChunkBorderConfig.subChunk || k % 16 != 0) {
+                if (!ChunkBorderConfig.subChunk || k % 16 != 0) { // prevent current from overlapping with sub
                     double m = (double) k - e;
                     worldRenderer.pos(i, m, j).color(getR, getG, getB, 0.0F).endVertex();
                     worldRenderer.pos(i, m, j).color(getR, getG, getB, getA).endVertex();
@@ -107,6 +109,7 @@ public class ChunkBorderDebugRenderer implements DebugRenderer.DebugRenderable {
             tessellator.draw();
         }
 
+        // sub chunk
         if (ChunkBorderConfig.subChunk) {
             GL11.glLineWidth(ChunkBorderConfig.subChunkWidth);
             worldRenderer.begin(3, DefaultVertexFormats.POSITION_COLOR);

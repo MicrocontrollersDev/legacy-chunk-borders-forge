@@ -17,16 +17,16 @@ public class ChunkBorderConfig extends Config {
     private boolean info = false;
 
     @Switch(
-            name = "Allow Opacity",
-            description = "Allows for opacity on lines."
+            name = "Allow Opacity and Blending",
+            description = "Allows for opacity and blending on lines. Will cause color mixing for overlapping lines regardless if color settings are opaque. Default: False"
     )
     public static boolean opacity = false;
 
     @Switch(
             name = "Remove Depth",
-            description = "Makes the chunk borders render through walls."
+            description = "Makes the chunk borders render through walls. Default: False"
     )
-    public static boolean depth = true;
+    public static boolean depth = false;
 
     @Switch(
             name = "Current Chunk",
