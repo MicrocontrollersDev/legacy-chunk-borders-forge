@@ -1,6 +1,6 @@
 # Legacy Chunk Borders (Forge)
 
-![Powered by OneConfig](https://polyfrost.org/img/cozy_vector.svg)
+[![Powered by OneConfig](https://github.com/MicrocontrollersDev/legacy-chunk-borders-forge/assets/66657148/b7767a21-ec9c-434b-a08d-f0b8e0e2a86d)](https://modrinth.com/mod/oneconfig)
 
 A port of [tildejustin's legacy chunk borders](https://modrinth.com/mod/legacy-chunk-borders) from Legacy Fabric to Forge. The original mod is under the [MIT license](https://github.com/tildejustin/legacy-chunk-borders/blob/main/LICENSE)
 
