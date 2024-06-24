@@ -3,18 +3,19 @@ package dev.tildejustin.chunkborders.config;
 import cc.polyfrost.oneconfig.config.Config;
 import cc.polyfrost.oneconfig.config.annotations.*;
 import cc.polyfrost.oneconfig.config.core.OneColor;
-import cc.polyfrost.oneconfig.config.data.InfoType;
+import cc.polyfrost.oneconfig.config.core.OneKeyBind;
 import cc.polyfrost.oneconfig.config.data.Mod;
 import cc.polyfrost.oneconfig.config.data.ModType;
+import cc.polyfrost.oneconfig.libs.universal.UKeyboard;
 import dev.tildejustin.chunkborders.LegacyChunkBorders;
 
 public class ChunkBorderConfig extends Config {
-    @Info(
-            type = InfoType.INFO,
-            text = "Press F3+G in a world to display the chunk overlay.",
+    @KeyBind(
+            name = "Toggle Chunk Borders Keybind",
+            description = "The default keybind is F3 + G",
             size = 2
     )
-    private boolean info = false;
+    public static OneKeyBind chunkBorderKeybind = new OneKeyBind(UKeyboard.KEY_F3, UKeyboard.KEY_G);
 
     @Switch(
             name = "Allow Opacity and Blending",
