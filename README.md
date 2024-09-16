@@ -1,3 +1,5 @@
+# Moved to https://codeberg.org/MicrocontrollersDev/legacy-chunk-borders-forge
+
 # Legacy Chunk Borders (Forge)
 
 [![Powered by OneConfig](https://github.com/MicrocontrollersDev/legacy-chunk-borders-forge/assets/66657148/b7767a21-ec9c-434b-a08d-f0b8e0e2a86d)](https://modrinth.com/mod/oneconfig)
